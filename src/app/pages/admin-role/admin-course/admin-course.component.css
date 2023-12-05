@@ -1,0 +1,18 @@
+.addStatus {
+  position: absolute;
+  right: 34px;
+}
+
+#search {
+  position: relative;
+  left: 35px;
+}
+
+.ser {
+  position: absolute;
+  left: 297px;
+}
+
+.box-shadow {
+  box-shadow: 0 2px 4px 0 gray, 0 4px 16px 0 gray;
+}

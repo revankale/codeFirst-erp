@@ -1,0 +1,123 @@
+<div class="container-fluid">
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header bg-dark d-flex justify-content-between">
+          <h6 class="text-light">All Enrollment List</h6>
+          <button class="btn btn-sm btn-light fw-bold" (click)="openEnroll()">
+            Add
+          </button>
+        </div>
+        <div class="card-body">
+          <table class="table table-striped table-hover table-bordered">
+            <thead class="color text-light text-center">
+              <tr>
+                <th>Sr.no</th>
+                <th>Candidate Name</th>
+                <th>Contact</th>
+                <th>E-mail</th>
+                <th>Course</th>
+                <th>Course Fee</th>
+                <th>Enroll.Date</th>
+                <th>Enrollment No</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <tr *ngFor="let item of enrollArray; let sr = index">
+                <td>{{ sr + 1 }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.contactNo }}</td>
+                <td>{{ item.email }}</td>
+                <td>{{ item.courseName }}</td>
+                <td>{{ item.courseFee | currency : "INR"  }}</td>
+                <td>{{ item.enrollmentDate | date: 'dd/MMM/yyy' }}</td>
+                <td>{{ item.enrollmentNo }}</td>
+                <td class="">
+                  <button class="btn btn-light btn-sm mx-3" (click)="onEdite(item)">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn btn-light btn-sm" (click)="deleteEnroll(item)">
+                    <i class="fa-solid fa-trash-can"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal form  -->
+
+<div class="modal mt-5" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h6 class="modal-title">Add Enrollment</h6>
+        <button type="button" class="btn-close" (click)="closeEnroll()" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-6 mb-3">
+            <label for="">Candidate Name</label> <br />
+            <select name="candidateId" class="form-control" [(ngModel)]="enrollObj.candidateId">
+              <option value="0" selected>Select Candidate</option>
+              <option [value]="item.candidateId" *ngFor="let item of candidateArray">{{item.name}}</option>
+            </select>
+          </div>
+          <div class="col-6">
+            <label for="">Contact No</label>
+            <input type="text" name="contactNo" [(ngModel)]="enrollObj.contactNo" class="form-control"
+              placeholder="Contact No" />
+          </div>
+          <div class="col-6 mb-3">
+            <label for="">Course Name</label>
+            <select name="candidateId" class="form-control" [(ngModel)]="enrollObj.courseId">
+              <option value="0" selected>Select Course</option>
+              <option [value]="item.courseId" *ngFor="let item of courseArray">{{item.courseName}}</option>
+            </select>
+          </div>
+          <div class="col-6">
+            <label for="">Course Fee</label>
+            <input type="text" name="courseFee" [(ngModel)]="enrollObj.courseFee" class="form-control"
+              placeholder="Course Fee" />
+          </div>
+          <div class="col-6 mb-3">
+            <label for="">Enroll.Date</label> <br />
+            <input type="date" name="enrollmentDate" [(ngModel)]="enrollObj.enrollmentDate" class="form-control"
+              placeholder="EnrollmentDate" />
+          </div>
+          <div class="col-6">
+            <label for="">Discount</label> <br />
+            <input type="text" name="discountGiven" [(ngModel)]="enrollObj.discountGiven" class="form-control"
+              placeholder="Discount Given" />
+          </div>
+
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <div class="">
+            <button type="button" class="btn btn-danger btn-sm mx-3" (click)="onReset()">
+              Reset
+            </button>
+            <button type="button" class="btn btn-dark btn-sm" (click)="addEnroll()"
+              *ngIf="enrollObj.enrollmentId == 0">
+              Save
+            </button>
+            <button type="button" class="btn btn-dark btn-sm" (click)="updateEnroll()"
+              *ngIf="enrollObj.enrollmentId != 0">
+              Update
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

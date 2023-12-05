@@ -1,0 +1,136 @@
+<div class="container-fluid mt-3">
+  <div class="row">
+    <div class="col-12">
+      <div class="card color">
+        <div class="d-flex justify-content-between my-4 mx-5">
+          <h5 class="text-dark">All Payment List</h5>
+        </div>
+        <div class="row">
+          <div class="">
+            <div class="col-2">
+              <div class="d-flex mb-2">
+                <!-- top head -->
+                <input class="form-control" id="search" type="search" placeholder="Search Payment"
+                  aria-label="Search" />
+                <button class="btn btn-outline-primary ser" type="submit">
+                  <i class="fas fa-search"></i>
+                </button>
+                <button class="btn btn-dark btn-sm addStatus" (click)="openPayment()">
+                  Add Payment
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- card code  -->
+        <div class="card-body">
+          <div class="row">
+            <div class="col-4" *ngFor="let item of paymentArray; let sr = index">
+              <div class="card m-2 mx-3 box-shadow">
+                <div class="card-body">
+                  <div class="text-start p-2">
+                    <p class="text-dark"><b>Sr No: </b>{{ sr + 1 }}</p>
+                    <p class="text-dark">
+                      <b>Candidate Name: </b>{{item.enrollNo}}
+                    </p>
+                    <p class="text-dark">
+                      <b>Course: </b>{{item.course}}
+                    </p>
+                    <p class="text-dark">
+                      <b>Course Fee: </b>{{item.amount | currency : "INR" }}
+                    </p>
+                    <p class="text-dark">
+                      <b>Payment Date: </b>{{item.paymentDate | date: 'dd/MMM/yyy'}}
+                    </p>
+                    <p class="text-dark">
+                      <b>Naration: </b>{{item.naration}}
+                    </p>
+                    <div class="class">
+                      <button class="btn btn-light btn-sm" (click)="onEdit(item)">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-light btn-sm mx-2" (click)="deletePayment(item)">
+                        <i class="fa-solid fa-trash-can"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal form  -->
+
+<div class="modal mt-5" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h6 class="modal-title">Add Payment</h6>
+        <button type="button" class="btn-close" (click)="closePayment()" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12 mb-3">
+            <label for="">Select Enrollment</label> <br />
+            <select name="enrollmentId" class="form-select" [(ngModel)]="paymentObj.enrollmentId">
+              <option value="0" disabled>Select Enrollment</option>
+              <option [value]="item.enrollmentId" *ngFor="let item of enrollArray">{{item.enrollmentNo}}
+              </option>
+            </select>
+          </div>
+          <div class="col-6">
+            <label for=""> Payment Date</label>
+            <input type="date" class="form-control" name="paymentDate" class="form-control"
+              [(ngModel)]="paymentObj.paymentDate">
+          </div>
+          <div class="col-6 mb-3">
+            <label for="">Payment Mode</label>
+            <select name="paymentMode" class="form-select" [(ngModel)]="paymentObj.paymentMode">
+              <option value="0" disabled>Select Payment</option>
+              <option value="Cash">Cash</option>
+              <option value="Online">Online</option>
+              <option value="UPI">UPI</option>
+              <option value="Card">Card</option>
+            </select>
+          </div>
+          <div class="col-6 mb-3">
+            <label for="">Amount</label>
+            <input type="text" class="form-control" name="amount" [(ngModel)]="paymentObj.amount" placeholder="Amount">
+          </div>
+          <div class="col-6">
+            <label for="">Naration</label>
+            <input type="text" class="form-control" name="naration" [(ngModel)]="paymentObj.naration" placeholder="Naration">
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <div class="row">
+            <div class="col-12">
+              <button type="button" class="btn btn-danger btn-sm mx-3" (click)="onReset()">
+                Reset
+              </button>
+              <button type="button" class="btn btn-dark btn-sm" (click)="AddPaymment()"
+                *ngIf="paymentObj.paymentId == 0">
+                Save
+              </button>
+              <button type="button" class="btn btn-dark  btn-sm" (click)="UpdatePayment()"
+                *ngIf="paymentObj.paymentId != 0">
+                Update
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

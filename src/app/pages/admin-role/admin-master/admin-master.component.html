@@ -1,0 +1,92 @@
+<div class="mt-3 container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="d-flex justify-content-between my-4 mx-5">
+          <h5 class="text-dark">All Master</h5>
+        </div>
+        <div class="row">
+          <div class="">
+            <div class="col-2">
+              <div class="d-flex mb-2">
+                <!-- top head -->
+                <input class="form-control" id="search" type="search" placeholder="Search Master" aria-label="Search">
+                <button class="btn btn-outline-primary ser" type="submit"><i class="fas fa-search"></i></button>
+                <button class="btn btn-dark btn-sm addStatus" title="Add Master" (click)="openMaster()"><i
+                    class="fa fa-plus" aria-hidden="true"></i></button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- card code -->
+        <div class="card-body">
+          <div class="row">
+            <div class="col-4" *ngFor="let item of masterArray;let sr=index">
+              <div class="card m-2 mx-3 box-shadow">
+                <div class="card-body">
+                  <div class="text-start p-2">
+                    <p class="text-dark"><b>Sr No: </b>{{sr+1}}</p>
+                    <p class="text-dark"><b>Master Name: </b>{{item.masterName}}</p>
+                    <p class="text-dark"><b>Master Form: </b>{{item.masterFor}}</p>
+                    <div class="class">
+                      <button class="btn btn-light btn-sm" (click)="onEdit(item)"><i class="fas fa-edit"></i></button>
+                      <button class="btn btn-light btn-sm mx-2"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- modal form  -->
+
+<div class="modal mt-5" id="myModal">
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h6 class="modal-title">Add Master</h6>
+        <button type="button" class="btn-close" (click)="closeMaster()" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-6 mb-3">
+            <label for="">Master Name</label>
+            <input type="text" name="master" [(ngModel)]="masterObj.masterName" class="form-control" placeholder="Name">
+          </div>
+          <div class="col-6">
+            <label for="">Select Master</label>
+            <select name="" class="form-control" [(ngModel)]="masterObj.masterFor">
+              <option value="" selected>Select Master Form</option>
+              <option [value]="master.masterFor" *ngFor=" let master of masterArray">{{master.masterFor}}</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <div class="">
+            <button type="button" class="btn btn-danger btn-sm mx-3" title="Reset" (click)="onReset()"><i
+                class="bi bi-bootstrap-reboot"></i></button>
+            <button type="button" class="btn btn-dark btn-sm" title="Save" (click)="AddMaster(masterObj)"
+              *ngIf="masterObj.masterId ==0"><i class="fas fa-save"></i></button>
+            <button type="button" class="btn btn-dark btn-sm" title="Update" (click)="UpdateMaster()"
+              *ngIf="masterObj.masterId !=0"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

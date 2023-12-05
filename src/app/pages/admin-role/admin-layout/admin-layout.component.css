@@ -1,0 +1,10 @@
+.bar {
+  background-color: rgb(165, 198, 224);
+}
+
+.box-shadow {
+  box-shadow: 0 2px 4px 0 gray, 0 4px 16px 0 gray;
+
+}
+
+
